@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#241d22">
+  <meta name="description" content="Explore o catálogo demonstrativo de utilidades e decoração da Casa Orla.">
+  <title>Casa Orla | Catálogo de casa e decoração</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./catalogo.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#" data-brand>Casa Orla<span aria-hidden="true">.</span></a>
+      <nav aria-label="Menu principal"><a href="#catalogo">Catálogo</a></nav>
+      <button type="button" class="list-button" id="open-list"><span>Minha lista</span><span class="badge" id="list-count">0</span></button>
+    </div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-layout">
+        <div class="hero-copy">
+          <p class="eyebrow" id="hero-kicker">Casa e decoração</p>
+          <h1 id="hero-title">A casa, em<br>cada detalhe.</h1>
+          <p id="hero-description">Peças para servir, organizar e dar personalidade aos espaços do dia a dia.</p>
+          <a class="primary" href="#catalogo">Explorar catálogo</a>
+        </div>
+        <figure><img id="hero-image" src="./assets/hero.webp" alt="Vaso de cerâmica com ramos e copos âmbar sobre uma bancada de pedra" fetchpriority="high"></figure>
+      </div>
+    </section>
+    <section class="wrap catalog" id="catalogo" aria-labelledby="catalog-title">
+      <div class="catalog-header">
+        <div><p class="eyebrow catalog-kicker" id="catalog-kicker">A seleção Casa Orla</p><h2 id="catalog-title">Encontre sua próxima peça</h2></div>
+        <label class="search"><span aria-hidden="true">⌕</span><input type="search" id="search" placeholder="Buscar no catálogo" aria-label="Buscar no catálogo"></label>
+      </div>
+      <div class="filter-bar">
+        <div id="filters" class="filters" aria-label="Filtrar por categoria"></div>
+        <p id="result-count" class="muted" aria-live="polite"></p>
+      </div>
+      <div id="products" class="product-grid"></div>
+      <div id="empty" class="empty" hidden>
+        <h3>Nenhum produto encontrado</h3>
+        <p>Tente outro termo ou selecione uma categoria diferente.</p>
+        <button type="button" id="reset" class="outline">Limpar filtros</button>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner">
+    <a class="brand" href="#" data-brand>Casa Orla<span aria-hidden="true">.</span></a>
+    <p id="demo-footer">Catálogo demonstrativo. Produtos, preços e imagens ilustrativos.</p>
+    <a class="footer-link" href="#catalogo">Voltar ao catálogo</a>
+  </div></footer>
+  <dialog id="product-dialog" aria-labelledby="detail-title">
+    <form method="dialog"><button type="submit" class="close" aria-label="Fechar detalhes">×</button></form>
+    <div id="product-detail"></div>
+  </dialog>
+  <dialog id="list-dialog" aria-labelledby="list-title">
+    <form method="dialog"><button type="submit" class="close" aria-label="Fechar minha lista">×</button></form>
+    <div class="dialog-body">
+      <h2 id="list-title">Minha lista</h2>
+      <div id="list-items"></div>
+      <div id="order-actions" hidden>
+        <div class="subtotal"><span>Subtotal dos itens</span><strong id="subtotal-value"></strong></div>
+        <button type="button" class="primary wide" id="prepare-order">Simular pedido</button>
+        <section id="message-preview" hidden aria-labelledby="message-title">
+          <h3 id="message-title">Mensagem de pedido</h3>
+          <p class="muted">Prévia para apresentação. Nenhum pedido será enviado.</p>
+          <textarea id="order-message" readonly rows="6" aria-label="Mensagem de pedido"></textarea>
+          <button type="button" class="outline" id="copy-message">Copiar mensagem</button>
+          <p id="copy-status" class="muted" role="status"></p>
+        </section>
+      </div>
+    </div>
+  </dialog>
+  <p id="notification" class="notification" role="status"></p>
+  <noscript>Ative o JavaScript para usar a busca, os filtros e a lista.</noscript>
+</body>
+</html>
