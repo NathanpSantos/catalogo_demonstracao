@@ -22,6 +22,7 @@ const prepare = byId('prepare-order');
 const preview = byId('message-preview');
 const message = byId('order-message');
 const copyStatus = byId('copy-status');
+const whatsappDemo = element('a', 'Abrir no WhatsApp', 'primary wide');
 const useWhatsApp = !demonstracao && /^\d{10,15}$/.test(whatsapp);
 const listKey = 'catalogo:' + marca + ':lista';
 
@@ -80,7 +81,13 @@ function applyBrand() {
   byId('hero-image').alt = catalogo.textoAlternativoCapa;
   byId('demo-footer').hidden = !demonstracao;
   prepare.textContent = useWhatsApp ? 'Enviar pelo WhatsApp' : demonstracao ? 'Simular pedido' : 'Montar mensagem de pedido';
-  if (!demonstracao && !useWhatsApp) {
+  if (demonstracao) {
+    preview.querySelector('p').textContent = 'Você escolhe a conversa no WhatsApp. O catálogo não envia a mensagem automaticamente.';
+    whatsappDemo.target = '_blank';
+    whatsappDemo.rel = 'noopener noreferrer';
+    whatsappDemo.style.marginBottom = '10px';
+    message.after(whatsappDemo);
+  } else if (!useWhatsApp) {
     preview.querySelector('p').textContent = 'Copie a mensagem para enviar pelo canal de atendimento da loja.';
   }
 }
@@ -214,10 +221,12 @@ function prepareOrder() {
     '', ...lines, '', 'Subtotal dos itens: ' + byId('subtotal-value').textContent,
     'Podem confirmar a disponibilidade e as opções de entrega ou retirada?',
   ].join('\n');
+  const encodedText = encodeURIComponent(text);
   if (useWhatsApp) {
-    window.location.href = 'https://wa.me/' + whatsapp + '?text=' + encodeURIComponent(text);
+    window.location.href = 'https://wa.me/' + whatsapp + '?text=' + encodedText;
     return;
   }
+  if (demonstracao) whatsappDemo.href = 'https://wa.me/?text=' + encodedText;
   message.value = text;
   preview.hidden = false;
   message.focus();
